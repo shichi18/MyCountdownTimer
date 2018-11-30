@@ -20,7 +20,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         mTimer = new MyCountDownTimer(3 * 60 * 1000, 100);
 
         mTimer.mTimerText = (TextView) findViewById(R.id.timer_text);
@@ -42,7 +41,5 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 }

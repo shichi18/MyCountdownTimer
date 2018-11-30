@@ -5,7 +5,7 @@ import android.os.CountDownTimer;
 import android.widget.TextView;
 
 /**
- *
+ *　カウントダウン処理のクラス
  */
 
 public class MyCountDownTimer extends CountDownTimer {
