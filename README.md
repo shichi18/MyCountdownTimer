@@ -1,7 +1,7 @@
 # MyCountdownTimer
 This is MyCountDownTimer .
 
-作成日：2018/5/9  
+作成日：2018/2/2  
 更新日：2018/11/30
 
 カウントダウンタイマー
