@@ -12,7 +12,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        
+
         //Create CountDownTimerFragment
         CountDownTimerFragment countDownTimerFragment = new CountDownTimerFragment();
         getSupportFragmentManager().beginTransaction().replace(R.id.change_layout, countDownTimerFragment).commit();
