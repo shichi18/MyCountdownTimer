@@ -1,6 +1,5 @@
 package com.example.student.mycountdowntimer;
 
-import android.annotation.SuppressLint;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -14,52 +13,48 @@ import android.widget.TextView;
 
 public class CountDownTimerFragment extends Fragment {
 
-    MyCountDownTimer mTimer;
+    MyCountDownTimer mTimer = null;
     FloatingActionButton mFab;
     FloatingActionButton pauseFab;
     FloatingActionButton resetFab;
     boolean stopChecked = false;
     boolean isRunning = false;
-    private static long initCountMillis = 1 * 10 * 1000;
+    public long initCountMillis = 1 * 10 * 1000;
 
     public CountDownTimerFragment() {
         // Required empty public constructor
     }
 
-    @SuppressLint("DefaultLocale")
-    private void initSetting(long millis, View view) {
-        long minute = millis / 1000 / 60;
-        long second = millis / 1000 % 60;
-        mTimer = new MyCountDownTimer(millis, 100);
-        mTimer.mTimerText = (TextView) view.findViewById(R.id.text_timer);
-        mTimer.mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
-
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_count_down_timer, container, false);
+        final View view = inflater.inflate(R.layout.fragment_count_down_timer, container, false);
 
-        initSetting(initCountMillis, view);
+        mTimer = new MyCountDownTimer(initCountMillis, 100);
+        mTimer.mTimerText = (TextView) view.findViewById(R.id.text_timer);
+        mTimer.timerSet(initCountMillis);
 
+        // TODO: 2018/12/02 再生する実装
         //Startボタン押す
         mFab = (FloatingActionButton) view.findViewById(R.id.start_play);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!isRunning) {//押したとき
-                    isRunning = true;//動作中判定
-                    mTimer.start();
-
-
-//                    if (stopChecked) {//途中からだったら
-//                        mTimer = new MyCountDownTimer(mTimer.countMills, 100);
-//                        mTimer.start();
-//                    }
+                if (!isRunning) {//停止状態のとき
+                    if (stopChecked) {
+                        stopChecked = false;
+                        isRunning = true;
+                        mTimer.start();
+                    } else {
+                        //一回目だけ
+                        isRunning = true;
+                        mTimer.start();
+                    }
                 }
             }
         });
 
+
+        // TODO: 2018/12/02 一時停止の実装
         //一時停止
         pauseFab = (FloatingActionButton) view.findViewById(R.id.pause);
         pauseFab.setOnClickListener(new View.OnClickListener() {
@@ -67,18 +62,20 @@ public class CountDownTimerFragment extends Fragment {
             public void onClick(View v) {
                 if (isRunning) {
                     isRunning = false;
+                    stopChecked = true;
                     mTimer.cancel();//タイマーをストップ
                 }
             }
         });
 
-//        resetFab = (FloatingActionButton) view.findViewById(R.id.reset);
-//        resetFab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                isRunning = false;
-//            }
-//        });
+        // TODO: 2018/12/02 リセットの実装（初期値に戻す）
+        resetFab = (FloatingActionButton) view.findViewById(R.id.reset);
+        resetFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                isRunning = false;
+            }
+        });
         return view;
 
     }
@@ -96,7 +93,7 @@ public class CountDownTimerFragment extends Fragment {
     }
 
     /**
-     * ActivityがBackgroundに移動するときに呼び出し
+     * FragmentがBackgroundに移動するときに呼び出し
      */
     @Override
     public void onPause() {

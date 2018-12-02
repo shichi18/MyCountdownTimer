@@ -11,11 +11,10 @@ import android.widget.TextView;
 
 public class MyCountDownTimer extends CountDownTimer {
 
-    TextView mTimerText ;
-    SoundPool mSoundPool;
-    int mSoundResId;
-    long countMills;
-
+    TextView mTimerText;
+    SoundPool mSoundPool = null;
+    int mSoundResId = 0;
+    private long millis = 0L;
 
     /**
      * @param millisInFuture    The number of millis in the future from the call
@@ -29,23 +28,24 @@ public class MyCountDownTimer extends CountDownTimer {
         super(millisInFuture, countDownInterval);
     }
 
-    //とりあえず10秒に設定
-
-
-
     /**
      * コンストラクタで指定した間隔で呼び出し
      * カウントダウン処理
-     * @param millisUntilFinished タイマーのミリ秒が渡される
+     *
+     * @param millisUntilFinished タイマーのミリ秒が渡される(残り時間)
      */
 
-    @SuppressLint("DefaultLocale")
     @Override
     public void onTick(long millisUntilFinished) {
-        long minute = millisUntilFinished / 1000 / 60;
-        long second = millisUntilFinished / 1000 % 60;
+        timerSet(millisUntilFinished);
+        millis = millisUntilFinished;//残り時間を代入
+    }
+
+    @SuppressLint("DefaultLocale")
+    public void timerSet(long mill) {
+        long minute = mill / 1000 / 60;
+        long second = mill / 1000 % 60;
         mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
-        countMills = millisUntilFinished;//残り時間を代入
     }
 
     /**
@@ -55,6 +55,6 @@ public class MyCountDownTimer extends CountDownTimer {
     public void onFinish() {
         mTimerText.setText("0:00");
         //音を鳴らす
-        mSoundPool.play(mSoundResId, 1.0f, 1.0f, 0, 1, 1.0f);
+        mSoundPool.play(mSoundResId, 1.0f, 1.0f, 0, 0, 1.0f);
     }
 }
