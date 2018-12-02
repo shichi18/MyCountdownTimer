@@ -9,33 +9,55 @@
     tools:layout_editor_absoluteY="81dp">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/stop_play"
+        android:id="@+id/start_play"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="56dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginLeft="112dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="50dp"
         android:clickable="true"
         android:focusable="true"
         android:tint="@android:color/white"
         app:elevation="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_timer"
+        app:layout_constraintTop_toBottomOf="@+id/reset"
         app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
 
     <TextView
         android:id="@+id/text_timer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="71dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textColor="@color/colorAccent"
         android:textSize="150sp"
-        app:layout_constraintBottom_toTopOf="@+id/stop_play"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="1:00" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="24dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_delete"
+        android:tint="@android:color/background_light"
+        app:layout_constraintStart_toEndOf="@+id/start_play"
+        app:layout_constraintTop_toBottomOf="@+id/text_timer" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/pause"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="21dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="50dp"
+        android:clickable="true"
+        android:src="@android:drawable/ic_media_pause"
+        app:layout_constraintStart_toEndOf="@+id/reset"
+        app:layout_constraintTop_toBottomOf="@+id/reset" />
 </android.support.constraint.ConstraintLayout>
