@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import static com.example.student.mycountdowntimer.MyCountDownTimer.millis;
+
 
 public class CountDownTimerFragment extends Fragment {
 
@@ -43,6 +45,11 @@ public class CountDownTimerFragment extends Fragment {
                     if (stopChecked) {
                         stopChecked = false;
                         isRunning = true;
+                        mTimer = null;
+                        System.out.println("---------------------------------------" + millis / 1000 % 60);
+                        mTimer = new MyCountDownTimer(millis, 100);
+                        mTimer.mTimerText = (TextView) view.findViewById(R.id.text_timer);
+                        mTimer.timerSet(millis);
                         mTimer.start();
                     } else {
                         //一回目だけ

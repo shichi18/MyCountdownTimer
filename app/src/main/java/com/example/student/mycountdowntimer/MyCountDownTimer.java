@@ -14,7 +14,7 @@ public class MyCountDownTimer extends CountDownTimer {
     TextView mTimerText;
     SoundPool mSoundPool = null;
     int mSoundResId = 0;
-    private long millis = 0L;
+    static long millis = 0L;
 
     /**
      * @param millisInFuture    The number of millis in the future from the call
@@ -42,10 +42,12 @@ public class MyCountDownTimer extends CountDownTimer {
     }
 
     @SuppressLint("DefaultLocale")
-    public void timerSet(long mill) {
+    public boolean timerSet(long mill) {
         long minute = mill / 1000 / 60;
         long second = mill / 1000 % 60;
         mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
+        return true;
+
     }
 
     /**
