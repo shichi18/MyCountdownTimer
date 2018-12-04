@@ -27,7 +27,6 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
 
     public CountDownTimerFragment() {
         // Required empty public constructor
-
     }
 
     public void initSet(long update_time, View view) {
@@ -71,6 +70,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                     stopChecked = false;
                     isRunning = true;
                     initSet(time, view);
+                    musicSet();
                     mTimer.start();
                 } else {
                     //一回目だけ
@@ -86,6 +86,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                 stopChecked = true;
                 time = mTimer.getMillis();
                 mTimer.cancel();//タイマーをストップ
+
             }
 
         }
@@ -95,12 +96,11 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         }
     }
 
-    /**
-     * Activityが前面になる時に呼び出し
-     */
-    @Override
-    public void onResume() {
-        super.onResume();
+    public void musicSet() {
+        mTimer.audioAttributes = null;
+        mTimer.mSoundPool = null;
+        mTimer.mSoundResId = 0;
+
         //アラームの種類の設定
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             mTimer.mSoundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
@@ -116,6 +116,16 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         mTimer.mSoundResId = mTimer.mSoundPool.load(getContext(), R.raw.alert, 1);
 
     }
+
+    /**
+     * Activityが前面になる時に呼び出し
+     */
+    @Override
+    public void onResume() {
+        super.onResume();
+        musicSet();
+    }
+
 
     /**
      * FragmentがBackgroundに移動するときに呼び出し
