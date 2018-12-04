@@ -1,6 +1,7 @@
 package com.example.student.mycountdowntimer;
 
 import android.annotation.SuppressLint;
+import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -14,7 +15,8 @@ public class MyCountDownTimer extends CountDownTimer {
     TextView mTimerText;
     SoundPool mSoundPool = null;
     int mSoundResId = 0;
-    static long millis = 0L;
+    AudioAttributes audioAttributes = null;
+    private long millis = 0L;
 
     /**
      * @param millisInFuture    The number of millis in the future from the call
@@ -37,18 +39,21 @@ public class MyCountDownTimer extends CountDownTimer {
 
     @Override
     public void onTick(long millisUntilFinished) {
-        timerSet(millisUntilFinished);
+        updateTimer(millisUntilFinished);
         millis = millisUntilFinished;//残り時間を代入
     }
 
+    public long getMillis() {
+        return millis;
+    }
+
     @SuppressLint("DefaultLocale")
-    public boolean timerSet(long mill) {
+    public void updateTimer(long mill) {
         long minute = mill / 1000 / 60;
         long second = mill / 1000 % 60;
         mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
-        return true;
-
     }
+
 
     /**
      * タイマー終了時に呼び出し
