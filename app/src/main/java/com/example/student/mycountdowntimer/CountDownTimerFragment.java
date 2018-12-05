@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 public class CountDownTimerFragment extends Fragment implements View.OnClickListener {
 
     private BaseCountDownTimer baseCountDownTimer;
-    private boolean stopChecked = false;
+    private boolean pauseChecked = false;
     private boolean isRunning = false;
-    private long time = 0L;
+
+    private long initTime = 0L;
+    private long remainingTime = 0L;
+
     private View view;
 
     private SoundPool soundPool = null;
@@ -31,10 +34,8 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         setInfo();
     }
 
-    private long timeSet() {
-        time = 5 * 1000;
-        return time;
-
+    private void timeSet() {
+        initTime = 5 * 1000;
     }
 
     @Override
@@ -42,8 +43,8 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         view = inflater.inflate(R.layout.fragment_count_down_timer, container, false);
 
         //タイマーセット
-        long initCountMillis = timeSet();
-        initSet(initCountMillis, view);
+        timeSet();
+        initSet(initTime, view);
 
         //Idセット
         FloatingActionButton mFab = view.findViewById(R.id.start_play);
@@ -62,10 +63,10 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     public void onClick(View v) {
         if (v.getId() == R.id.start_play) {
             if (!isRunning) {//停止状態のとき
-                if (stopChecked) {
-                    stopChecked = false;
+                if (pauseChecked) {
+                    pauseChecked = false;
                     isRunning = true;
-                    initSet(time, view);//いる！
+                    initSet(remainingTime, view);//いる！
                     baseCountDownTimer.start();
                 } else {
                     isRunning = true;
@@ -75,17 +76,20 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         } else if (v.getId() == R.id.pause) {
             if (isRunning) {
                 isRunning = false;
-                stopChecked = true;
+                pauseChecked = true;
                 getInfo();
                 baseCountDownTimer.cancel();//タイマーをストップ
             }
         } else if (v.getId() == R.id.reset) {
             isRunning = false;
+            getInfo();
+            baseCountDownTimer.cancel();
+            initSet(initTime, view);
         }
     }
 
     public void getInfo() {
-        time = baseCountDownTimer.getMillis();
+        remainingTime = baseCountDownTimer.getMillis();
         soundPool = baseCountDownTimer.getSoundPool();
         soundResId = baseCountDownTimer.getSoundResId();
     }
