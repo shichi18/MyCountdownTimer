@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 
 public class CountDownTimerFragment extends Fragment implements View.OnClickListener {
 
-    private MyCountDownTimer mTimer;
+    private BaseCountDownTimer baseCountDownTimer;
     private boolean stopChecked = false;
     private boolean isRunning = false;
     private long time = 0L;
@@ -26,13 +26,13 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
 
     public void initSet(long update_time, View view) {
         int timerTextId = R.id.text_timer;
-        mTimer = new MyCountDownTimer(update_time, 100, view, getContext(), timerTextId);
-        mTimer.updateTimer(update_time);
+        baseCountDownTimer = new BaseCountDownTimer(update_time, 100, view, getContext(), timerTextId);
+        baseCountDownTimer.updateTimer(update_time);
         setInfo();
     }
 
     private long timeSet() {
-        time = 10 * 1000;
+        time = 5 * 1000;
         return time;
 
     }
@@ -66,10 +66,10 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                     stopChecked = false;
                     isRunning = true;
                     initSet(time, view);//いる！
-                    mTimer.start();
+                    baseCountDownTimer.start();
                 } else {
                     isRunning = true;
-                    mTimer.start();
+                    baseCountDownTimer.start();
                 }
             }
         } else if (v.getId() == R.id.pause) {
@@ -77,7 +77,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                 isRunning = false;
                 stopChecked = true;
                 getInfo();
-                mTimer.cancel();//タイマーをストップ
+                baseCountDownTimer.cancel();//タイマーをストップ
             }
         } else if (v.getId() == R.id.reset) {
             isRunning = false;
@@ -85,14 +85,14 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     }
 
     public void getInfo() {
-        time = mTimer.getMillis();
-        soundPool = mTimer.getmSoundPool();
-        soundResId = mTimer.getmSoundResId();
+        time = baseCountDownTimer.getMillis();
+        soundPool = baseCountDownTimer.getSoundPool();
+        soundResId = baseCountDownTimer.getSoundResId();
     }
 
     public void setInfo() {
-        mTimer.setmSoundPool(soundPool);
-        mTimer.setmSoundResId(soundResId);
+        baseCountDownTimer.setSoundPool(soundPool);
+        baseCountDownTimer.setSoundResId(soundResId);
     }
 
     /**
@@ -101,7 +101,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     @Override
     public void onResume() {
         super.onResume();
-        mTimer.musicSet();
+        baseCountDownTimer.musicSet();
     }
 
     /**
@@ -110,6 +110,6 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     @Override
     public void onPause() {
         super.onPause();
-        mTimer.musicRelease();
+        baseCountDownTimer.musicRelease();
     }
 }

@@ -14,24 +14,24 @@ import android.widget.TextView;
  * 　カウントダウン処理のクラス
  */
 
-public class MyCountDownTimer extends CountDownTimer {
+public class BaseCountDownTimer extends CountDownTimer {
 
-    private TextView mTimerText;
-    private SoundPool mSoundPool;
-    private int mSoundResId;
+    private TextView timerText;
+    private SoundPool soundPool;
+    private int soundResId;
     private long millis = 0L;
 
-    private Context context = null;
+    private Context context;
 
     /**
      * @param millisInFuture
      * @param countDownInterval
      * @param context
      */
-    MyCountDownTimer(long millisInFuture, long countDownInterval, View view, Context context, int timerTextId) {
+    BaseCountDownTimer(long millisInFuture, long countDownInterval, View view, Context context, int timerTextId) {
         super(millisInFuture, countDownInterval);
         this.context = context;
-        this.mTimerText = view.findViewById(timerTextId);
+        this.timerText = view.findViewById(timerTextId);
     }
 
     /**
@@ -55,40 +55,40 @@ public class MyCountDownTimer extends CountDownTimer {
     public void updateTimer(long mill) {
         long minute = mill / 1000 / 60;
         long second = mill / 1000 % 60;
-        mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
+        timerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
     }
 
 
     public void musicSet() {
         //アラームの種類の設定
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mSoundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
+            soundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
         } else {
             AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build();
-            mSoundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
+            soundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
         }
-        mSoundResId = mSoundPool.load(context, R.raw.alert, 1);
+        soundResId = soundPool.load(context, R.raw.alert, 1);
     }
 
 
     public void musicRelease() {
-        mSoundPool.release();
+        soundPool.release();
     }
 
-    public SoundPool getmSoundPool() {
-        return mSoundPool;
+    public SoundPool getSoundPool() {
+        return soundPool;
     }
 
-    public void setmSoundPool(SoundPool mSoundPool) {
-        this.mSoundPool = mSoundPool;
+    public void setSoundPool(SoundPool soundPool) {
+        this.soundPool = soundPool;
     }
 
-    public int getmSoundResId() {
-        return mSoundResId;
+    public int getSoundResId() {
+        return soundResId;
     }
 
-    public void setmSoundResId(int mSoundResId) {
-        this.mSoundResId = mSoundResId;
+    public void setSoundResId(int soundResId) {
+        this.soundResId = soundResId;
     }
 
     /**
@@ -96,8 +96,8 @@ public class MyCountDownTimer extends CountDownTimer {
      */
     @Override
     public void onFinish() {
-        mTimerText.setText("0:00");
+        timerText.setText("0:00");
         //音を鳴らす
-        mSoundPool.play(mSoundResId, 1.0f, 1.0f, 0, 0, 1.0f);
+        soundPool.play(soundResId, 1.0f, 1.0f, 0, 0, 1.0f);
     }
 }
