@@ -17,13 +17,13 @@ public class MyCountDownTimer extends CountDownTimer {
     private long millis = 0L;
 
     /**
-     * @param millisInFuture    The number of millis in the future from the call
-     *                          to {@link #start()} until the countdown is done and {@link #onFinish()}
-     *                          is called.
-     * @param countDownInterval The interval along the way to receive
-     *                          {@link #onTick(long)} callbacks.
+     * コンストラクタ
+     *
+     * @param millisInFuture
+     * @param countDownInterval
+     * @param soundPool
+     * @param soundResId
      */
-
     public MyCountDownTimer(long millisInFuture, long countDownInterval, SoundPool soundPool, int soundResId) {
         super(millisInFuture, countDownInterval);
         this.mSoundPool = soundPool;

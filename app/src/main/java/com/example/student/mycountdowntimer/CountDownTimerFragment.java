@@ -62,7 +62,6 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         resetFab.setOnClickListener(this);
 
         return view;
-
     }
 
     @Override
@@ -73,7 +72,6 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                     stopChecked = false;
                     isRunning = true;
                     initSet(time, view);
-//                    musicSet();
                     mTimer.start();
                 } else {
                     //一回目だけ
