@@ -1,7 +1,11 @@
 package com.example.student.mycountdowntimer;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.SoundPool;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.widget.TextView;
 
@@ -12,22 +16,20 @@ import android.widget.TextView;
 public class MyCountDownTimer extends CountDownTimer {
 
     TextView mTimerText;
-    SoundPool mSoundPool;
-    int mSoundResId;
+    private SoundPool mSoundPool;
+    private int mSoundResId;
     private long millis = 0L;
 
+    private Context context = null;
+
     /**
-     * コンストラクタ
-     *
      * @param millisInFuture
      * @param countDownInterval
-     * @param soundPool
-     * @param soundResId
+     * @param context
      */
-    public MyCountDownTimer(long millisInFuture, long countDownInterval, SoundPool soundPool, int soundResId) {
+    MyCountDownTimer(long millisInFuture, long countDownInterval, Context context) {
         super(millisInFuture, countDownInterval);
-        this.mSoundPool = soundPool;
-        this.mSoundResId = soundResId;
+        this.context = context;
     }
 
     /**
@@ -52,6 +54,39 @@ public class MyCountDownTimer extends CountDownTimer {
         long minute = mill / 1000 / 60;
         long second = mill / 1000 % 60;
         mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
+    }
+
+
+    public void musicSet() {
+        //アラームの種類の設定
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            mSoundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
+        } else {
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build();
+            mSoundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
+        }
+        mSoundResId = mSoundPool.load(context, R.raw.alert, 1);
+    }
+
+
+    public void musicRelease() {
+        mSoundPool.release();
+    }
+
+    public SoundPool getmSoundPool() {
+        return mSoundPool;
+    }
+
+    public void setmSoundPool(SoundPool mSoundPool) {
+        this.mSoundPool = mSoundPool;
+    }
+
+    public int getmSoundResId() {
+        return mSoundResId;
+    }
+
+    public void setmSoundResId(int mSoundResId) {
+        this.mSoundResId = mSoundResId;
     }
 
     /**
