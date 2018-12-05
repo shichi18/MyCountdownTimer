@@ -11,6 +11,19 @@ app/build/
 !.idea/gradle.xml
 !.idea/runConfigurations/*.xml
 
+!/codeStyleSettings.xml
+!/copyright/*.xml
+!/fileColors.xml
+!/encodings.xml
+!/gradle.xml
+!/runConfigurations/*.xml
+!/inspectionProfiles/*.xml
+/inspectionProfiles/profiles_settings.xml
+!/scopes/*.xml
+/scopes/scope_settings.xml
+!/templateLanguages.xml
+!/vcs.xml
+
 # Windows thumbnail cache files
 ehthumbs_vista.db
 
