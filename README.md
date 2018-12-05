@@ -17,4 +17,6 @@ HUAWEI HDN-W09 (Android 7.0,API 24)
 ActivityからFragmentに変更。  
 一時停止と時間のリセットを追加実装。
 
+<img src="https://user-images.githubusercontent.com/32414468/49515832-5e64f100-f8db-11e8-9e20-34ed34211e0a.png" width =60%>
+
 時間選択はまだ未実装。
