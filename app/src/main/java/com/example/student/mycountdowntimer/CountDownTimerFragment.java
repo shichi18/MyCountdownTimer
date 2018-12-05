@@ -25,13 +25,16 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     FloatingActionButton pauseFab;
     FloatingActionButton resetFab;
 
+    private SoundPool mSoundPool = null;
+    private int mSoundResId = 0;
+
     public CountDownTimerFragment() {
         // Required empty public constructor
     }
 
     public void initSet(long update_time, View view) {
         mTimer = null;
-        mTimer = new MyCountDownTimer(update_time, 100);
+        mTimer = new MyCountDownTimer(update_time, 100, mSoundPool, mSoundResId);
         mTimer.mTimerText = (TextView) view.findViewById(R.id.text_timer);
         mTimer.updateTimer(update_time);
     }
@@ -70,7 +73,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                     stopChecked = false;
                     isRunning = true;
                     initSet(time, view);
-                    musicSet();
+//                    musicSet();
                     mTimer.start();
                 } else {
                     //一回目だけ
@@ -97,23 +100,16 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     }
 
     public void musicSet() {
-        mTimer.audioAttributes = null;
-        mTimer.mSoundPool = null;
-        mTimer.mSoundResId = 0;
-
+        mSoundPool = mTimer.mSoundPool;
+        mSoundResId = mTimer.mSoundResId;
         //アラームの種類の設定
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            mTimer.mSoundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
+            mSoundPool = new SoundPool(2, AudioManager.STREAM_ALARM, 0);
         } else {
-            mTimer.audioAttributes = new AudioAttributes.Builder()
-                    .setUsage(AudioAttributes.USAGE_ALARM)
-                    .build();
-            mTimer.mSoundPool = new SoundPool.Builder()
-                    .setMaxStreams(1)
-                    .setAudioAttributes(mTimer.audioAttributes)
-                    .build();
+            AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build();
+            mSoundPool = new SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build();
         }
-        mTimer.mSoundResId = mTimer.mSoundPool.load(getContext(), R.raw.alert, 1);
+        mSoundResId = mSoundPool.load(getContext(), R.raw.alert, 1);
 
     }
 

@@ -1,7 +1,6 @@
 package com.example.student.mycountdowntimer;
 
 import android.annotation.SuppressLint;
-import android.media.AudioAttributes;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.widget.TextView;
@@ -13,9 +12,8 @@ import android.widget.TextView;
 public class MyCountDownTimer extends CountDownTimer {
 
     TextView mTimerText;
-    SoundPool mSoundPool = null;
-    int mSoundResId = 0;
-    AudioAttributes audioAttributes = null;
+    SoundPool mSoundPool;
+    int mSoundResId;
     private long millis = 0L;
 
     /**
@@ -26,8 +24,10 @@ public class MyCountDownTimer extends CountDownTimer {
      *                          {@link #onTick(long)} callbacks.
      */
 
-    public MyCountDownTimer(long millisInFuture, long countDownInterval) {
+    public MyCountDownTimer(long millisInFuture, long countDownInterval, SoundPool soundPool, int soundResId) {
         super(millisInFuture, countDownInterval);
+        this.mSoundPool = soundPool;
+        this.mSoundResId = soundResId;
     }
 
     /**
@@ -53,7 +53,6 @@ public class MyCountDownTimer extends CountDownTimer {
         long second = mill / 1000 % 60;
         mTimerText.setText(String.format("%1d:%2$02d", minute, second)); //指定された書式文字列で文字列を整形
     }
-
 
     /**
      * タイマー終了時に呼び出し
