@@ -5,59 +5,70 @@
     android:id="@+id/countdown_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CountDownTimerFragment"
-    tools:layout_editor_absoluteY="81dp">
+    android:layout_gravity="center"
+    tools:context=".CountDownTimerFragment">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/start_play"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/liner_vertical"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="112dp"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="50dp"
-        android:clickable="true"
-        android:focusable="true"
-        android:tint="@android:color/white"
-        app:elevation="0dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/reset"
-        app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
-
-    <TextView
-        android:id="@+id/text_timer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="71dp"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="@color/colorAccent"
-        android:textSize="150sp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="1:00" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/reset"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="24dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_delete"
-        android:tint="@android:color/background_light"
-        app:layout_constraintStart_toEndOf="@+id/start_play"
-        app:layout_constraintTop_toBottomOf="@+id/text_timer" />
+        <TextView
+            android:id="@+id/text_timer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="1:00"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/colorAccent"
+            android:textSize="170sp" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/pause"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="21dp"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="50dp"
-        android:clickable="true"
-        android:src="@android:drawable/ic_media_pause"
-        app:layout_constraintStart_toEndOf="@+id/reset"
-        app:layout_constraintTop_toBottomOf="@+id/reset" />
+        <LinearLayout
+            android:id="@+id/liner_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/reset"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@android:drawable/ic_delete"
+                android:tint="@android:color/background_light" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/start_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:tint="@android:color/white"
+                app:srcCompat="@drawable/ic_play_arrow_black_24dp" />
+
+            <android.support.design.widget.FloatingActionButton
+                android:id="@+id/pause"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@android:drawable/ic_media_pause" />
+        </LinearLayout>
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
