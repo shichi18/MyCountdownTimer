@@ -7,6 +7,7 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -15,7 +16,7 @@ import android.widget.TextView;
 
 public class MyCountDownTimer extends CountDownTimer {
 
-    TextView mTimerText;
+    private TextView mTimerText;
     private SoundPool mSoundPool;
     private int mSoundResId;
     private long millis = 0L;
@@ -27,9 +28,10 @@ public class MyCountDownTimer extends CountDownTimer {
      * @param countDownInterval
      * @param context
      */
-    MyCountDownTimer(long millisInFuture, long countDownInterval, Context context) {
+    MyCountDownTimer(long millisInFuture, long countDownInterval, View view, Context context, int timerTextId) {
         super(millisInFuture, countDownInterval);
         this.context = context;
+        this.mTimerText = view.findViewById(timerTextId);
     }
 
     /**

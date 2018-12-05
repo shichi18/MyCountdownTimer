@@ -25,9 +25,8 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     }
 
     public void initSet(long update_time, View view) {
-        mTimer = null;
-        mTimer = new MyCountDownTimer(update_time, 100, getContext());
-        mTimer.mTimerText = view.findViewById(R.id.text_timer);
+        int timerTextId = R.id.text_timer;
+        mTimer = new MyCountDownTimer(update_time, 100, view, getContext(), timerTextId);
         mTimer.updateTimer(update_time);
         setInfo();
     }
