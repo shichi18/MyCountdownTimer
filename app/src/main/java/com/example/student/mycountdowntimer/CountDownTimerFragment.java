@@ -23,6 +23,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
 
     private SoundPool soundPool = null;
     private int soundResId = 0;
+    long sec = 3;
 
     public CountDownTimerFragment() {
         // Required empty public constructor
@@ -35,16 +36,15 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         setInfo();
     }
 
-    private void timeSet() {
-        initTime = 1 * 5 * 1000;//ミリ秒
+    private void timeSet(long sec) {
+        initTime = sec * 60 * 1000;//ミリ秒
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_count_down_timer, container, false);
-
-        //タイマーセット
-        timeSet();
+        //タイマーセット(初期値)
+        timeSet(sec);
         initSet(initTime, view);
         //Idセット
         FloatingActionButton mFab = view.findViewById(R.id.start_play);
