@@ -100,7 +100,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
             isRunning = false;
             getInfo();
             baseCountDownTimer.cancel();//タイマーをストップ
-            sec = 1;
+            sec = 3;
             timeSet(sec);
             initSet(initTime, view);
         } else if (v.getId() == R.id.min_5) {
