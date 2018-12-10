@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 
@@ -50,10 +51,18 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         FloatingActionButton mFab = view.findViewById(R.id.start_play);
         FloatingActionButton pauseFab = view.findViewById(R.id.pause);
         FloatingActionButton resetFab = view.findViewById(R.id.reset);
+
+        Button m3 = view.findViewById(R.id.min_3);
+        Button m5 = view.findViewById(R.id.min_5);
+        Button m10 = view.findViewById(R.id.min_10);
         //リスナーセット
         mFab.setOnClickListener(this);
         pauseFab.setOnClickListener(this);
         resetFab.setOnClickListener(this);
+
+        m3.setOnClickListener(this);
+        m5.setOnClickListener(this);
+        m10.setOnClickListener(this);
 
         return view;
     }
@@ -83,6 +92,30 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
             isRunning = false;
             getInfo();
             baseCountDownTimer.cancel();
+            initSet(initTime, view);
+        }
+
+        //時間設定のボタン（3種類）
+        if (v.getId() == R.id.min_3) {
+            isRunning = false;
+            getInfo();
+            baseCountDownTimer.cancel();//タイマーをストップ
+            sec = 1;
+            timeSet(sec);
+            initSet(initTime, view);
+        } else if (v.getId() == R.id.min_5) {
+            isRunning = false;
+            getInfo();
+            baseCountDownTimer.cancel();//タイマーをストップ
+            sec = 5;
+            timeSet(sec);
+            initSet(initTime, view);
+        } else if (v.getId() == R.id.min_10) {
+            isRunning = false;
+            getInfo();
+            baseCountDownTimer.cancel();//タイマーをストップ
+            sec = 10;
+            timeSet(sec);
             initSet(initTime, view);
         }
     }
