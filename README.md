@@ -2,21 +2,27 @@
 This is MyCountDownTimer .
 
 作成日：2018/2/2  
-更新日：2018/12/5
+更新日：2018/12/10
 
 カウントダウンタイマー  
-Androidアプリ作成の本をを参考にしながら作成。 
+Androidアプリ作成の本をを参考にしながら作成(再生で音実装だけ)。 
 
 ## 開発環境
 AndroidStudio 3.1  
 HUAWEI HDN-W09 (Android 7.0,API 24)
 
 ## 実行例
-現時点では、0:05 からのカウントダウンの実装。  
+3分、5分、10分からのカウントダウンの実装。  
 
 ActivityからFragmentに変更。  
 一時停止と時間のリセットを追加実装。
+時間セットを追加。
 
-<img src="https://user-images.githubusercontent.com/32414468/49515832-5e64f100-f8db-11e8-9e20-34ed34211e0a.png" width =60%>
+3分  
+<img src="https://user-images.githubusercontent.com/32414468/49734802-d579fb00-fcc8-11e8-8919-2814047ce967.png" width =60%>
 
-時間選択はまだ未実装。
+5分  
+<img src="https://user-images.githubusercontent.com/32414468/49734804-d579fb00-fcc8-11e8-896f-59df89d4f2cf.png" width =60%>
+
+10分  
+<img src="https://user-images.githubusercontent.com/32414468/49734800-d579fb00-fcc8-11e8-8325-52f8f8a9a2e6.png" width =60%>
