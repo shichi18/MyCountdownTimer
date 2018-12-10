@@ -7,7 +7,6 @@ import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.CountDownTimer;
-import android.view.View;
 import android.widget.TextView;
 
 /**
@@ -26,12 +25,13 @@ public class BaseCountDownTimer extends CountDownTimer {
     /**
      * @param millisInFuture
      * @param countDownInterval
+     * @param timerText
      * @param context
      */
-    BaseCountDownTimer(long millisInFuture, long countDownInterval, View view, Context context, int timerTextId) {
+    BaseCountDownTimer(long millisInFuture, long countDownInterval, TextView timerText, Context context) {
         super(millisInFuture, countDownInterval);
         this.context = context;
-        this.timerText = view.findViewById(timerTextId);
+        this.timerText = timerText;
     }
 
     /**

@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:id="@+id/countdown_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,13 +11,14 @@
 
     <LinearLayout
         android:id="@+id/liner_vertical"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -67,6 +69,39 @@
                 android:focusable="true"
                 android:src="@android:drawable/ic_media_pause" />
         </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/liner_horizontal2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/min_3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="@string/min3" />
+
+            <Button
+                android:id="@+id/min_5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="@string/min5" />
+
+            <Button
+                android:id="@+id/min_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                android:layout_weight="1"
+                android:text="@string/min10" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
