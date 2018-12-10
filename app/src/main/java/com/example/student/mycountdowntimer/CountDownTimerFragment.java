@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 
 public class CountDownTimerFragment extends Fragment implements View.OnClickListener {
@@ -28,14 +29,14 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
     }
 
     public void initSet(long update_time, View view) {
-        int timerTextId = R.id.text_timer;
-        baseCountDownTimer = new BaseCountDownTimer(update_time, 100, view, getContext(), timerTextId);
+        TextView timerText = view.findViewById(R.id.text_timer);
+        baseCountDownTimer = new BaseCountDownTimer(update_time, 100, timerText, getContext());
         baseCountDownTimer.updateTimer(update_time);
         setInfo();
     }
 
     private void timeSet() {
-        initTime = 5 * 1000;
+        initTime = 1 * 5 * 1000;//ミリ秒
     }
 
     @Override
@@ -45,12 +46,10 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
         //タイマーセット
         timeSet();
         initSet(initTime, view);
-
         //Idセット
         FloatingActionButton mFab = view.findViewById(R.id.start_play);
         FloatingActionButton pauseFab = view.findViewById(R.id.pause);
         FloatingActionButton resetFab = view.findViewById(R.id.reset);
-
         //リスナーセット
         mFab.setOnClickListener(this);
         pauseFab.setOnClickListener(this);
@@ -61,7 +60,7 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.start_play) {
+        if (v.getId() == R.id.start_play) {//スタートボタン
             if (!isRunning) {//停止状態のとき
                 if (pauseChecked) {
                     pauseChecked = false;
@@ -73,14 +72,14 @@ public class CountDownTimerFragment extends Fragment implements View.OnClickList
                     baseCountDownTimer.start();
                 }
             }
-        } else if (v.getId() == R.id.pause) {
+        } else if (v.getId() == R.id.pause) {//一時停止ボタン
             if (isRunning) {
                 isRunning = false;
                 pauseChecked = true;
                 getInfo();
                 baseCountDownTimer.cancel();//タイマーをストップ
             }
-        } else if (v.getId() == R.id.reset) {
+        } else if (v.getId() == R.id.reset) {//リセットボタン
             isRunning = false;
             getInfo();
             baseCountDownTimer.cancel();
